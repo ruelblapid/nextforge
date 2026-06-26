@@ -1,6 +1,6 @@
 # nextforge
 
-Reusable CQRS / DI / DDD-lite core for Next.js apps, extracted from `asset-scan`'s `src/Shared`.
+Reusable CQRS / DI / DDD-lite core for Next.js apps.
 
 Provides:
 - **CQRS bus** — `ICommand`/`ICommandHandler`/`ICommandBus`, `IQuery`/`IQueryHandler`/`IQueryBus`, in-memory implementations
