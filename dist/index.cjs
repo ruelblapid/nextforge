@@ -48,6 +48,7 @@ __export(index_exports, {
   Links: () => Links,
   Meta: () => Meta,
   Module: () => Module,
+  ModuleResolver: () => ModuleResolver,
   Operator: () => Operator2,
   PASSWORD_MIN_LENGTH: () => PASSWORD_MIN_LENGTH,
   PASSWORD_PATTERN: () => PASSWORD_PATTERN,
@@ -635,6 +636,43 @@ var Files = () => {
       existingParams.push(meta);
     }
   };
+};
+
+// src/Decorators/Module/ModuleResolver.ts
+var ModuleResolver = class {
+  constructor(container) {
+    this.container = container;
+  }
+  container;
+  loaded = /* @__PURE__ */ new Set();
+  resolve(...modules) {
+    for (const module2 of modules) {
+      this._loadModule(module2);
+    }
+  }
+  _loadModule(module2) {
+    if (this.loaded.has(module2)) {
+      return;
+    }
+    this.loaded.add(module2);
+    const metadata = moduleRegistry.get(module2);
+    if (!metadata) {
+      throw new Error(`Module not found: ${module2.name}`);
+    }
+    for (const imported of metadata.imports ?? []) {
+      this._loadModule(imported);
+    }
+    for (const provider of metadata.providers ?? []) {
+      if (provider.singleton) {
+        this.container.singleton(provider.token, provider.factory);
+      } else {
+        this.container.transient(provider.token, provider.factory);
+      }
+    }
+    for (const controller of metadata.controllers ?? []) {
+      this.container.transient(controller.token, controller.factory);
+    }
+  }
 };
 
 // src/Decorators/Module/index.ts
@@ -2247,6 +2285,7 @@ var Permissions_exports = {};
   Links,
   Meta,
   Module,
+  ModuleResolver,
   Operator,
   PASSWORD_MIN_LENGTH,
   PASSWORD_PATTERN,

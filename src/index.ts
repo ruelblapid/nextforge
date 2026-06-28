@@ -42,7 +42,8 @@ export {
 	Header,
 	Files,
 } from './Decorators';
-export { Module, moduleRegistry } from './Decorators/Module';
+export { Module, moduleRegistry, ModuleResolver } from './Decorators/Module';
+
 export type { ModuleMetadata } from './Decorators/Module';
 
 // Either / use-case plumbing

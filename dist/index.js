@@ -549,6 +549,43 @@ var Files = () => {
   };
 };
 
+// src/Decorators/Module/ModuleResolver.ts
+var ModuleResolver = class {
+  constructor(container) {
+    this.container = container;
+  }
+  container;
+  loaded = /* @__PURE__ */ new Set();
+  resolve(...modules) {
+    for (const module of modules) {
+      this._loadModule(module);
+    }
+  }
+  _loadModule(module) {
+    if (this.loaded.has(module)) {
+      return;
+    }
+    this.loaded.add(module);
+    const metadata = moduleRegistry.get(module);
+    if (!metadata) {
+      throw new Error(`Module not found: ${module.name}`);
+    }
+    for (const imported of metadata.imports ?? []) {
+      this._loadModule(imported);
+    }
+    for (const provider of metadata.providers ?? []) {
+      if (provider.singleton) {
+        this.container.singleton(provider.token, provider.factory);
+      } else {
+        this.container.transient(provider.token, provider.factory);
+      }
+    }
+    for (const controller of metadata.controllers ?? []) {
+      this.container.transient(controller.token, controller.factory);
+    }
+  }
+};
+
 // src/Decorators/Module/index.ts
 var moduleRegistry = /* @__PURE__ */ new Map();
 function Module(metadata) {
@@ -2158,6 +2195,7 @@ export {
   Links,
   Meta,
   Module,
+  ModuleResolver,
   Operator2 as Operator,
   PASSWORD_MIN_LENGTH,
   PASSWORD_PATTERN,

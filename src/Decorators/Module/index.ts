@@ -1,7 +1,4 @@
-import {
-	ControllerDefinition,
-	ProviderDefinition,
-} from '../../Container';
+import { ControllerDefinition, ProviderDefinition } from '../../Container';
 export interface ModuleMetadata {
 	imports?: Function[];
 	providers?: ProviderDefinition<any>[] | Function[];
@@ -13,3 +10,4 @@ export function Module(metadata: ModuleMetadata): ClassDecorator {
 		moduleRegistry.set(target, metadata);
 	};
 }
+export { ModuleResolver } from './ModuleResolver';
