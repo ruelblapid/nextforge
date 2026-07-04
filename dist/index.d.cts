@@ -1058,6 +1058,61 @@ declare class QueryValidationException extends Error {
  */
 declare function validateQuery(controllerClass: Function, methodName: string, query: QueryMap): void;
 
+/**
+ * Copyright (C) RBL Solution 2026
+ * All Rights Reserved.
+ */
+interface ITaggedCache {
+    remember(key: string, expireAt: number, callback: Function): Promise<unknown>;
+    forever(key: string, value: unknown): void;
+    set(key: string, value: unknown, expireAt?: number): void;
+    get(key: string): unknown | undefined;
+    forget(key: string): void;
+    flush(): Promise<void>;
+    destroy(): void;
+    keys(name: string): unknown | undefined;
+}
+
+/**
+ * Copyright (C) RBL Solution 2026
+ * All Rights Reserved.
+ */
+
+interface IStore {
+    tags(...tags: string[]): ITaggedCache;
+}
+
+/**
+ * Copyright (C) RBL Solution 2026
+ * All Rights Reserved.
+ */
+interface ICacheRepository extends IStore {
+    forever(key: string, value: unknown): void;
+    remember(key: string, expireAt: number, callback?: Function): unknown;
+    set(key: string, value: unknown, expireAt?: number): void;
+    get(key: string): unknown | undefined;
+    forget(key: string): void;
+    flush(): void;
+    destroy(): void;
+    keys(name: string): unknown | undefined;
+}
+interface CacheItem {
+    _id?: string;
+    key: string;
+    value: unknown;
+    expireAt?: number;
+}
+
+/**
+ * Copyright (C) RBL Solution 2026
+ * All Rights Reserved.
+ */
+
+interface ICacheManager {
+    repository(driver?: string): ICacheRepository;
+    destroy(): void;
+}
+
 interface IOTPConfiguration {
     email: boolean;
     sms: boolean;
@@ -1265,4 +1320,4 @@ declare namespace index {
   export type { index_IPermissionDocument as IPermissionDocument, index_IPermissionProperties as IPermissionProperties, index_IPermissionRepository as IPermissionRepository, index_PermissionSummaryResponse as PermissionSummaryResponse };
 }
 
-export { AnyValueObject, ApiException, type AuthenticatedHttpRequest, BadRequestException, BaseDto, Body, CORE_DI_SYMBOLS, type CommandDefinition, CommandHandlers, type CommandResponse, DataError as ConcreteDataError, Container, Controller, type ControllerDefinition, type DataError$1 as DataError, Delete, Either, EitherAsync, Entity, EnumValueObject, type Factory, type FieldsetConfig, Files, type FilterFieldConfig, type FilterMap, FilterValueType, Get, HTTP_STATUS, Header, type HttpAdapter, type HttpFile, type HttpRequest, HttpRequestEngine, type HttpResponse, type IApplicationConfiguration, type IAuthConfiguration, type IAuthenticationService, type ICacheServerConfiguration, type ICommand, type ICommandBus, type ICommandHandler, type IConfigurationProvider, type ICookieConfiguration, type IDatabase, type IDatabaseConfiguration, type IDatabaseManager, type IDocument, type IEntityPropertyType, type IIdentifiable, type ILogger, type IMailer, type IMailerConfiguration, type IMailerCredential, type IOTPConfiguration, type IPagingConfiguration, type IParameters, type IPermissionService, type IPermissions, type IQuery, type IQueryBus, type IQueryHandler, type IQueryParameters, type IRepository, type IResponse, type IService, type IStorageConfiguration, type IStorageService, type IUseCase, Identifier, InMemoryCommandBus, InMemoryQueryBus, InputParseError, InvalidArgumentError, Links, Meta, type Middleware, type MiddlewareMeta, Module, type ModuleContainer, type ModuleMetadata, ModuleResolver, Operator, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN, PASSWORD_REQUIREMENTS_MESSAGE, PaginatedResourceResponse, Param, Parameters, type ParsedFilter, index as Permissions, Post, type ProviderDefinition, Put, Query, type QueryDefinition, QueryHandlers, type QueryMap, QueryParameters, QueryParser, type QueryResponse, QuerySchema, type QuerySchemaConfig, type QuerySchemaMetadata, type QueryValidationError, QueryValidationException, type Resolver, index$1 as Roles, SessionExpiredException, StringValueObject, type Token, TokenExpiredException, UnAuthorizedException, UniqueEntityID, UseCaseError, UserParameter, index$2 as Users, type ValidatedQuery, ValidationException, ValueObject, buildRegistryKey, createToken, generateSecurePassword, getQuerySchema, moduleRegistry, querySchemaRegistry, registerQuerySchema, validateQuery };
+export { AnyValueObject, ApiException, type AuthenticatedHttpRequest, BadRequestException, BaseDto, Body, CORE_DI_SYMBOLS, type CacheItem, type CommandDefinition, CommandHandlers, type CommandResponse, DataError as ConcreteDataError, Container, Controller, type ControllerDefinition, type DataError$1 as DataError, Delete, Either, EitherAsync, Entity, EnumValueObject, type Factory, type FieldsetConfig, Files, type FilterFieldConfig, type FilterMap, FilterValueType, Get, HTTP_STATUS, Header, type HttpAdapter, type HttpFile, type HttpRequest, HttpRequestEngine, type HttpResponse, type IApplicationConfiguration, type IAuthConfiguration, type IAuthenticationService, type ICacheManager, type ICacheRepository, type ICacheServerConfiguration, type ICommand, type ICommandBus, type ICommandHandler, type IConfigurationProvider, type ICookieConfiguration, type IDatabase, type IDatabaseConfiguration, type IDatabaseManager, type IDocument, type IEntityPropertyType, type IIdentifiable, type ILogger, type IMailer, type IMailerConfiguration, type IMailerCredential, type IOTPConfiguration, type IPagingConfiguration, type IParameters, type IPermissionService, type IPermissions, type IQuery, type IQueryBus, type IQueryHandler, type IQueryParameters, type IRepository, type IResponse, type IService, type IStorageConfiguration, type IStorageService, type IStore, type ITaggedCache, type IUseCase, Identifier, InMemoryCommandBus, InMemoryQueryBus, InputParseError, InvalidArgumentError, Links, Meta, type Middleware, type MiddlewareMeta, Module, type ModuleContainer, type ModuleMetadata, ModuleResolver, Operator, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN, PASSWORD_REQUIREMENTS_MESSAGE, PaginatedResourceResponse, Param, Parameters, type ParsedFilter, index as Permissions, Post, type ProviderDefinition, Put, Query, type QueryDefinition, QueryHandlers, type QueryMap, QueryParameters, QueryParser, type QueryResponse, QuerySchema, type QuerySchemaConfig, type QuerySchemaMetadata, type QueryValidationError, QueryValidationException, type Resolver, index$1 as Roles, SessionExpiredException, StringValueObject, type Token, TokenExpiredException, UnAuthorizedException, UniqueEntityID, UseCaseError, UserParameter, index$2 as Users, type ValidatedQuery, ValidationException, ValueObject, buildRegistryKey, createToken, generateSecurePassword, getQuerySchema, moduleRegistry, querySchemaRegistry, registerQuerySchema, validateQuery };

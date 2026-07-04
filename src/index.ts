@@ -106,6 +106,11 @@ export type {
 	IAuthenticationService,
 } from './Auth';
 
+export type { ICacheManager } from './Cache/ICacheManager';
+export type { ICacheRepository, CacheItem } from './Cache/ICacheRepository';
+export type { IStore } from './Cache/IStore';
+export type { ITaggedCache } from './Cache/ITaggedCache';
+
 // Configuration contracts
 export * from './Configuration';
 
