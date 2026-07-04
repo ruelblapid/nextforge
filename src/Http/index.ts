@@ -396,13 +396,11 @@ export class HttpRequestEngine {
 				},
 			};
 		}
-		if (error instanceof ApiException) {
-			return {
-				status: error.getCode(),
-				headers: { 'Content-Type': 'application/json' },
-				body: { message: error.getMessage(), code: error.getCode() },
-			};
-		}
+		// UnAuthorizedException/SessionExpiredException both extend
+		// ApiException, so these specific checks must run before the generic
+		// `instanceof ApiException` fallback below — otherwise that catch-all
+		// intercepts them first and returns their (unrelated) default
+		// ApiException code instead of the 403/401 these are meant to be.
 		if (error instanceof SessionExpiredException) {
 			return {
 				status: 401,
@@ -415,6 +413,13 @@ export class HttpRequestEngine {
 				status: 403,
 				headers: { 'Content-Type': 'application/json' },
 				body: { message: error.message, code: 403 },
+			};
+		}
+		if (error instanceof ApiException) {
+			return {
+				status: error.getCode(),
+				headers: { 'Content-Type': 'application/json' },
+				body: { message: error.getMessage(), code: error.getCode() },
 			};
 		}
 		if (error?.message === 'ForbiddenExceptionTriggered') {

@@ -6,6 +6,7 @@ export type { IEntityPropertyType } from './IEntityPropertyType';
 export type { ILogger } from './ILogger';
 export type { IMailer } from './IMailer';
 export type { default as IRepository } from './IRepository';
+export type { default as IService } from './IService';
 export { Links, Meta } from './IResponse';
 export type { IResponse } from './IResponse';
 export type { IStorageService } from './IStorageService';

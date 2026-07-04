@@ -2118,13 +2118,6 @@ var HttpRequestEngine = class {
         }
       };
     }
-    if (error instanceof ApiException) {
-      return {
-        status: error.getCode(),
-        headers: { "Content-Type": "application/json" },
-        body: { message: error.getMessage(), code: error.getCode() }
-      };
-    }
     if (error instanceof SessionExpiredException) {
       return {
         status: 401,
@@ -2137,6 +2130,13 @@ var HttpRequestEngine = class {
         status: 403,
         headers: { "Content-Type": "application/json" },
         body: { message: error.message, code: 403 }
+      };
+    }
+    if (error instanceof ApiException) {
+      return {
+        status: error.getCode(),
+        headers: { "Content-Type": "application/json" },
+        body: { message: error.getMessage(), code: error.getCode() }
       };
     }
     if (error?.message === "ForbiddenExceptionTriggered") {
