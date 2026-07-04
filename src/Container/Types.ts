@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface Token<T> {
 	readonly key: symbol;
 	readonly name: string;

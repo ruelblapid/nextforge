@@ -29,7 +29,7 @@ export class Identifier<T> {
 
 	protected _uuidToInt(uuid: string): number {
 		// convert to integer - see answers to https://stackoverflow.com/q/39346517/2860309
-		let buffer = Buffer.from(uuid);
+		const buffer = Buffer.from(uuid);
 
 		const result = buffer.readUInt32BE(0);
 

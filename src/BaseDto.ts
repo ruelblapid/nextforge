@@ -1,6 +1,6 @@
 import ValidationException from './Exceptions/ValidationException';
 import { ZodType, ZodError } from 'zod';
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export abstract class BaseDto<T> {
 	static schema: ZodType;
 

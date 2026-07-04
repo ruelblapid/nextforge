@@ -26,7 +26,7 @@ function createParamDecorator(type: ParamType) {
 		return (target, propertyKey, parameterIndex) => {
 			if (!propertyKey) return;
 			const controllerClassMethod = target.constructor.prototype;
-			let existingParams: ParamMetadata[] = parameterRegistry.get(
+			const existingParams: ParamMetadata[] = parameterRegistry.get(
 				controllerClassMethod
 			);
 
@@ -55,7 +55,7 @@ export const Body = (DtoClass?: DtoConstructor): ParameterDecorator => {
 	return (target, propertyKey, parameterIndex) => {
 		if (!propertyKey) return;
 		const controllerClassMethod = target.constructor.prototype;
-		let existingParams: ParamMetadata[] = parameterRegistry.get(
+		const existingParams: ParamMetadata[] = parameterRegistry.get(
 			controllerClassMethod
 		);
 
@@ -80,7 +80,7 @@ export const Files = (): ParameterDecorator => {
 	return (target, propertyKey, parameterIndex) => {
 		if (!propertyKey) return;
 		const controllerClassMethod = target.constructor.prototype;
-		let existingParams: ParamMetadata[] = parameterRegistry.get(
+		const existingParams: ParamMetadata[] = parameterRegistry.get(
 			controllerClassMethod
 		);
 

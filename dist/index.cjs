@@ -165,7 +165,7 @@ var Identifier = class {
     return this.value;
   }
   _uuidToInt(uuid2) {
-    let buffer = import_buffer.Buffer.from(uuid2);
+    const buffer = import_buffer.Buffer.from(uuid2);
     const result = buffer.readUInt32BE(0);
     return result;
   }
@@ -572,7 +572,7 @@ function createParamDecorator(type) {
     return (target, propertyKey, parameterIndex) => {
       if (!propertyKey) return;
       const controllerClassMethod = target.constructor.prototype;
-      let existingParams = parameterRegistry.get(
+      const existingParams = parameterRegistry.get(
         controllerClassMethod
       );
       const meta = {
@@ -598,7 +598,7 @@ var Body = (DtoClass) => {
   return (target, propertyKey, parameterIndex) => {
     if (!propertyKey) return;
     const controllerClassMethod = target.constructor.prototype;
-    let existingParams = parameterRegistry.get(
+    const existingParams = parameterRegistry.get(
       controllerClassMethod
     );
     const meta = {
@@ -620,7 +620,7 @@ var Files = () => {
   return (target, propertyKey, parameterIndex) => {
     if (!propertyKey) return;
     const controllerClassMethod = target.constructor.prototype;
-    let existingParams = parameterRegistry.get(
+    const existingParams = parameterRegistry.get(
       controllerClassMethod
     );
     const meta = {
@@ -1444,10 +1444,10 @@ var QueryParameters = class {
     return includes;
   }
   getSortParameter(parameter) {
-    let sortParameters = new Array();
+    const sortParameters = new Array();
     if (parameter && parameter.length) {
       const sorts = Array.isArray(parameter) ? parameter : parameter.trim().split(",");
-      for (let sort of sorts) {
+      for (const sort of sorts) {
         const param = sort.trim().charAt(0);
         const isDesc = param == "-";
         const field = sort.replace("-", "").replace("+", "");

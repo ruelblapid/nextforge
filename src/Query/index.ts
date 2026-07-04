@@ -83,12 +83,12 @@ export class QueryParameters implements IQueryParameters {
 	private getSortParameter(
 		parameter?: string | string[]
 	): Array<SortParameter> {
-		let sortParameters: Array<SortParameter> = new Array<SortParameter>();
+		const sortParameters: Array<SortParameter> = new Array<SortParameter>();
 		if (parameter && parameter.length) {
 			const sorts = Array.isArray(parameter)
 				? parameter
 				: parameter.trim().split(',');
-			for (let sort of sorts) {
+			for (const sort of sorts) {
 				const param = sort.trim().charAt(0);
 				const isDesc = param == '-';
 				const field = sort.replace('-', '').replace('+', '');
